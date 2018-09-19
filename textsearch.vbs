@@ -95,13 +95,15 @@ sub ReadFiles(MyFolder)
 			if ((myFile.Attributes And 2) <> 2) and (GetANExtension = filetype) then
 				path = fs.GetAbsolutePathName(MyFolder) & "\" & MyFile.name 
 				Set objFile = fs.OpenTextFile(path, 1)
+				linenum = 1
 				Do Until objFile.AtEndOfStream
 					myLine = objFile.ReadLine	
 					instrResult = instr(ucase(myLine), ucase(searchText)) 
 					if instrResult > 0 then
-						fname.writeLine path & "," & myLine 
+						fname.writeLine path & "," & linenum & "," & myLine 
 						resultCount = resultCount + 1
 					end if
+					linenum = linenum + 1
 				Loop
 				objFile.Close
 			end if
